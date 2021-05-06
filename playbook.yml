@@ -5,9 +5,14 @@
   vars_files:
     - ./conf/vars.yml
   tasks:
-    - name: Upgrade packages
+    - name: Upgrade packages (it might take a few minutes)
       apt:
         upgrade: yes
+    
+    - name: Check swap file
+      stat:
+        path: /var/swapfile
+      register: swap_file
 
     - name: Expand swap size
       shell: >
@@ -17,19 +22,19 @@
         swapon /var/swapfile;
         echo '/var/swapfile none swap defaults 0 0' >> /etc/fstab;
       ignore_errors: yes
-      when: ansible_memtotal_mb < 16000
+      when: ansible_memtotal_mb < 16000 and swap_file.stat.exists == false
 
-    - name: Firewall setting
-      firewalld:
+    - name: Firewall(ufw) setting
+      ufw:
         state: enabled
         port: "{{ item }}"
-        permanent: yes
-        immediate: yes
+        rule: allow
       loop:
-        - 3000/tcp
-        - 7900/tcp
-        - 3001/tcp
-        - 80/tcp
+        - 3000
+        - 7900
+        - 3001
+        - 80
+        - 22
 
     - name: Install curl
       apt:
@@ -128,11 +133,11 @@
         src: ./conf/preset.yml
         dest: /home/{{ username }}/symbol-bootstrap/preset.yml
 
-    - name: Configuration symbol-bootstrap
-      shell: cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap config -p mainnet -a dual -c preset.yml
+    - name: Configuration symbol-bootstrap (it might take a few minutes)
+      shell: cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap config -p mainnet -a dual -c preset.yml --password={{ symbol_password }}
 
-    - name: Start symbol-bootstrap
-      shell: cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap start -d
+    - name: Start symbol-bootstrap (it might take a few minutes)
+      shell: cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap start -d --password={{ symbol_password }}
     
     - name: Make directory for https
       file:

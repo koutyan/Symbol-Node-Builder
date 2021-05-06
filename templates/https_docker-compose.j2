@@ -8,7 +8,7 @@ services:
       - '3001:443'
     restart: 'on-failure:2'
     environment:
-      DOMAINS: '{{ ansible_facts['default_ipv4']['address'] }} -> http://rest-gateway:3000'
+      DOMAINS: '{{ ansible_facts['fqdn'] }} -> http://rest-gateway:3000'
       STAGE: 'production'
       WEBSOCKET: 'true'
     volumes:

@@ -11,24 +11,12 @@ fi
 sudo apt update
 sudo apt install -y software-properties-common
 sudo apt-add-repository --yes --update ppa:ansible/ansible
-sudo apt install -y ansible
-
-# SSH key setup.
-if [ -f ~/.ssh/id_rsa.pub ]; then
-  echo "id_rsa.pub is existed."
-else
-  ssh-keygen -t rsa -q -N '""' -f ~/.ssh/id_rsa
-fi
-
-while read line
-do
-  ssh-copy-id -o StrictHostKeyChecking=no $username@$line
-done < ./conf/inventory
+sudo apt install -y ansible sshpass
 
 echo;
 echo "Setup done."
 echo;
 echo "Then, enter this command to build Symbol node."
 echo -e "\n"
-echo "ansible-playbook playbook.yml"
+echo "ansible-playbook playbook.yml -vvv"
 echo -e "\n"
