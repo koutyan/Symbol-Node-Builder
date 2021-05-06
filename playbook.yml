@@ -139,6 +139,13 @@
     - name: Start symbol-bootstrap (it might take a few minutes)
       shell: cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap start -d --password={{ symbol_password }}
     
+    - name: Check Symbol node health
+      uri:
+        url: http://{{ ansible_facts['default_ipv4']['address'] }}:3000/node/health
+        return_content: yes
+      register: result
+      failed_when: "'down' in result.content"
+
     - name: Make directory for https
       file:
         path: /home/{{ username }}/https-portal
