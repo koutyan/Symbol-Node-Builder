@@ -1,0 +1,6 @@
+---
+nodes:
+  - friendlyName: Your Symbol node description
+    maxUnlockedAccounts: 20
+    beneficiaryAddress: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    delegatePrioritizationPolicy: Age

@@ -1,0 +1,151 @@
+---
+- name: Prepare node
+  hosts: all
+  become: yes
+  vars_files:
+    - ./conf/vars.yml
+  tasks:
+    - name: Upgrade packages
+      apt:
+        upgrade: yes
+
+    - name: Expand swap size
+      shell: >
+        fallocate -l 8G /var/swapfile;
+        chmod 600 /var/swapfile;
+        mkswap /var/swapfile;
+        swapon /var/swapfile;
+        echo '/var/swapfile none swap defaults 0 0' >> /etc/fstab;
+      ignore_errors: yes
+      when: ansible_memtotal_mb < 16000
+
+    - name: Firewall setting
+      firewalld:
+        state: enabled
+        port: "{{ item }}"
+        permanent: yes
+        immediate: yes
+      loop:
+        - 3000/tcp
+        - 7900/tcp
+        - 3001/tcp
+        - 80/tcp
+
+    - name: Install curl
+      apt:
+        name: curl
+        state: present
+
+    - name: Add node.js repository
+      shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+      ignore_errors: yes
+
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+
+    - name: Update npm
+      npm:
+        global: yes
+        state: latest
+    
+    - name: Install Symbol Bootstrap
+      npm:
+        name: symbol-bootstrap
+        global: yes
+        state: latest
+
+    - name: Install packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - gnupg-agent
+          - software-properties-common
+        state: present
+
+    - name: Add docker apt-key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        id: 0EBFCD88
+        state: present
+
+    - name: Check OS release name
+      shell: lsb_release -cs
+      register: os_release_name
+
+    - name: Add docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ os_release_name.stdout }} stable
+        state: present
+
+    - name: Install docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Install docker-compose
+      shell: >
+        curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose;
+        chmod +x /usr/local/bin/docker-compose;
+      ignore_errors: yes
+
+    - name: Check docker-compose exists
+      stat:
+        path: /usr/local/bin/docker-compose
+      register: stat_docker_compose
+      failed_when: stat_docker_compose.stat.exists == false
+
+    - name: Add user to docker group
+      user:
+        name: "{{ username }}"
+        groups: docker
+        append: yes
+      
+    - name: Restart docker service
+      service:
+        name: docker
+        enabled: yes
+        state: restarted
+
+
+- name: Build Symbol node
+  hosts: all
+  vars_files:
+    - ./conf/vars.yml
+  tasks:
+    - name: Make target directory
+      file:
+        path: /home/{{ username }}/symbol-bootstrap/target
+        state: directory
+
+    - name: Send preset file
+      copy:
+        src: ./conf/preset.yml
+        dest: /home/{{ username }}/symbol-bootstrap/preset.yml
+
+    - name: Configuration symbol-bootstrap
+      shell: cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap config -p mainnet -a dual -c preset.yml
+
+    - name: Start symbol-bootstrap
+      shell: cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap start -d
+    
+    - name: Make directory for https
+      file:
+        path: /home/{{ username }}/https-portal
+        state: directory
+      when: https_node == true
+
+    - name: Create docker-compose file for https
+      template:
+        src: ./templates/https_docker-compose.j2
+        dest: /home/{{ username }}/https-portal/docker-compose.yml
+      when: https_node == true
+
+    - name: Start https-portal container
+      shell: cd /home/{{ username }}/https-portal && docker-compose up -d
+      when: https_node == true
