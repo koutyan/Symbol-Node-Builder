@@ -152,5 +152,6 @@
       when: https_node == true
 
     - name: Start https-portal container
+      become: yes
       shell: cd /home/{{ username }}/https-portal && docker-compose up -d
       when: https_node == true
