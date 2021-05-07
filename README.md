@@ -193,6 +193,8 @@ $ ansible-playbook playbook.yml -vvv
 
 - Symbolノード(symbol-bootstrap)を超簡単に更新できるツール [Symbol Node Updater](https://github.com/koutyan/Symbol-Node-Updater) も是非チェックしてみてください。
 
+- アップデート通知などは、[Twitter(@_kotyan_)](https://twitter.com/_kotyan_) で行います。
+
 --
 
 - If an error occurs in the SSH connection when executing step 4, each (or both) of the following possibilities are possible.
@@ -235,6 +237,8 @@ $ ansible-playbook playbook.yml -vvv
 - Other comments and requests are also welcome on the above Issue page.
 
 - Please also check out [Symbol Node Updater](https://github.com/koutyan/Symbol-Node-Updater), a tool that makes it super easy to update Symbol nodes (symbol-bootstrap).
+
+- Updates and other information will be posted on [Twitter(@_kotyan_)](https://twitter.com/_kotyan_).
 
 ## Donate
 
