@@ -87,7 +87,7 @@ $ chmod +x setup.sh
 $ ./setup.sh
 ```
 
-4： 最後に以下のコマンドを実行します。ユーザーパスワードとrootパスワードを求められるので、入力してください。Symbolノードの構築が実施されます。`WARNING`などの表示は気にしないでください。
+4： 最後に以下のコマンドを実行します。2回パスワードを求められるので、入力してください。Symbolノードの構築が実施されます。`WARNING`などの表示は気にしないでください。
 
 ```(text)
 $ ansible-playbook playbook.yml -vvv
@@ -138,7 +138,7 @@ $ chmod +x setup.sh
 $ ./setup.sh
 ```
 
-4： Finally, execute the following command, then you will be prompted for your user password and root password, enter them: Symbol node construction will be performed. Don't worry about the `WARNING` and other indications.
+4： You will be prompted twice for a password, enter it, and the Symbol node will be built. Don't worry about the `WARNING` and other indications.
 
 ```(text)
 $ ansible-playbook playbook.yml -vvv
