@@ -161,7 +161,7 @@ $ ansible-playbook playbook.yml -vvv
     $ sudo systemctl restart sshd
     ```
 
-  - Port 22が閉じている：セキュリティ観点上、Port 22を閉じている場合は、inventoryファイルのサーバーのIPアドレス(またはホスト名)の後ろに空白をあけ、以下の例のように`ansible_port=<SSH使用ポート>`と記載してください。
+  - Port 22が閉じている：セキュリティ観点上、Port 22を閉じていてSSH用に別のポートを使用している場合は、conf/inventoryファイルを編集する必要があります。サーバーのIPアドレス(またはホスト名)の後ろに空白をあけ、以下の例のように`ansible_port=<SSH使用ポート>`と記載してください。単純に、22番ポートを閉じているだけ(SSH接続をしたことがない場合)であれば開放してください。
 
     ```(text)
     localhost ansible_port=55555
@@ -208,7 +208,7 @@ $ ansible-playbook playbook.yml -vvv
     $ sudo systemctl restart sshd
     ```
 
-  - Port 22 is closed: If Port 22 is closed for security reasons, leave a space after the IP address (or hostname) of the server in the inventory file and write `ansible_port=<port used for SSH>` as shown in the following example.
+  - Port 22 is closed: If you have closed Port 22 for security reasons and are using a different port for SSH, you need to edit the conf/inventory file. Leave a space after the IP address (or hostname) of the server and put `ansible_port=<port used for SSH>` as shown in the following example. Simply open port 22 if it is closed (if you have never made an SSH connection before).
 
     ```(text)
     localhost ansible_port=55555
