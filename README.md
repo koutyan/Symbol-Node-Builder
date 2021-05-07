@@ -48,20 +48,21 @@ This is a tool to easily build Symbol nodes (peer, api) on your own nodes (inclu
 
 ## How to use
 
-以下の操作は Ubuntu 上で実施してください。(The following operations should be performed on Ubuntu.)
+以下の操作は Ubuntu 上で実施してください。
 
-1： ツールをダウンロードして解凍します。(Download and unzip the tool.)
+1： ツールをダウンロードして解凍します。
 
   ```(text)
-  $ wget https://github.com/koutyan/Symbol-Node-Builder/archive/refs/tags/v1.0.tar.gz
-  $ tar xzvf Symbol-Node-Builder-1.0.tar.gz
+  $ wget https://github.com/koutyan/Symbol-Node-Builder/archive/refs/tags/v1.0.1.tar.gz
+  $ tar xzvf v1.0.1.tar.gz
+  $ cd Symbol-Node-Builder-1.0.1/
   ```
 
-2： **/confディレクトリ内**のファイルを編集して、自分に合った設定にします。(Edit the files **in the /conf directory** to make the settings suitable for you.)
+2： **/confディレクトリ内**のファイルを編集して、自分に合った設定にします。
 
-- **inventory**：実行対象ノードのホスト名またはIPアドレスを指定します。基本的にはデフォルトの`localhost`で問題ないです。もし、現在操作しているサーバーとは他のサーバーに構築したい場合はそのサーバーのIPアドレスに置き換えてください。また、複数ノードを一括構築したい場合は、このファイルに対象サーバーのIPアドレスを改行して記載してください。(Specify the hostname or IP address of the node to be executed. Basically, the default `localhost` is fine. If you want to build on a different server than the one you are currently operating on, replace it with the IP address of that server. Also, if you want to build multiple nodes at once, please enter the IP address of the target server in this file with a new line. )
+- **inventory**：実行対象ノードのホスト名またはIPアドレスを指定します。基本的にはデフォルトの`localhost`で問題ないです。もし、現在操作しているサーバーとは他のサーバーに構築したい場合はそのサーバーのIPアドレスに置き換えてください。また、複数ノードを一括構築したい場合は、このファイルに対象サーバーのIPアドレスを改行して記載してください。
 
-- **preset.yml**：このファイルではハーベスティングのための重要な設定を行います。`friendlyName`では、ノードの説明を自由に設定できます。`maxUnlockedAccounts`では、委任者数の上限を設定できます。ノードのスペックに応じて設定してください。`beneficiaryAddress`には、ノード報酬を振り込んで欲しいアドレスを記載してください。`delegatePrioritizationPolicy`では、委任者数が上限に達した場合にノードに残す順序を設定できます。インポータンス順(Importance)か先着順(Age)かを設定してください。(This file contains important settings for harvesting. The `friendlyName` allows you to set any description of the node. For `maxUnlockedAccounts`, you can set the maximum number of delegates. Set it according to the specifications of the node. `beneficiaryAddress` is the address to which you want the node reward to be transferred. `delegatePrioritizationPolicy` allows you to set the order in which delegates will be left on the node when the limit is reached. You can set either Importance order or Age order.)
+- **preset.yml**：このファイルではハーベスティングのための重要な設定を行います。`friendlyName`では、ノードの説明を自由に設定できます。`maxUnlockedAccounts`では、委任者数の上限を設定できます。ノードのスペックに応じて設定してください。`beneficiaryAddress`には、ノード報酬を振り込んで欲しいウォレットアドレスを記載してください。`delegatePrioritizationPolicy`では、委任者数が上限に達した場合にノードに残す順序を設定できます。インポータンス順(Importance)か先着順(Age)かを設定してください。
   
     ```(text)
     nodes:
@@ -71,7 +72,7 @@ This is a tool to easily build Symbol nodes (peer, api) on your own nodes (inclu
         delegatePrioritizationPolicy: Age
     ```
 
-- **vars.yml**：`username`に、構築するノードの一般ユーザー名を指定してください。このユーザー名はすでに存在することが前提です。また、ノードをHTTPSに対応させたくない場合は、`https_node`をfalseにしてください。`symbol_password`には、Symbolノードの設定ファイルを暗号化するためのパスワードを自由に設定してください。(The `username` should be the general user name of the node to be built. It is assumed that this user name already exists. Also, if you don't want your node to support HTTPS, set `https_node` to false. Feel free to set a password for `symbol_password` to encrypt the configuration files of Symbol nodes.)
+- **vars.yml**：`username`に、構築するノードの一般ユーザー名を指定してください。このユーザー名はすでに存在することが前提です。また、ノードをHTTPSに対応させたくない場合は、`https_node`をfalseにしてください。`symbol_password`には、Symbolノードの設定ファイルを暗号化するためのパスワードを自由に設定してください。
 
     ```(text)
     username: ubuntu
@@ -79,22 +80,73 @@ This is a tool to easily build Symbol nodes (peer, api) on your own nodes (inclu
     symbol_password: hogehoge
     ```
 
-3： 以下のコマンドを実行します。構築前の準備が行われます。"Setup done." と表示されたら成功です。(Execute the following command. Pre-build preparations are made. If you see "Setup done.", you have succeeded.)
+3： 以下のコマンドを実行します。パスワードを聞かれますので入力します。構築前の準備が行われます。"Setup done" と表示されたら完了です。
 
 ```(text)
-$ sudo chmod +x setup.sh
+$ chmod +x setup.sh
 $ ./setup.sh
 ```
 
-4： 最後に以下のコマンドを実行します。ユーザーパスワードとrootパスワードを求められるので、入力してください。Symbolノードの構築が実施されます。`WARNING`などの表示は気にしないでください。(Finally, execute the following command, then you will be prompted for your user password and root password, enter them: Symbol node construction will be performed. Don't worry about the `WARNING` and other indications.)
+4： 最後に以下のコマンドを実行します。ユーザーパスワードとrootパスワードを求められるので、入力してください。Symbolノードの構築が実施されます。`WARNING`などの表示は気にしないでください。
 
 ```(text)
 $ ansible-playbook playbook.yml -vvv
 ```
 
+5： しばらく待って、実施結果が表示され、`failed=0` となっていれば成功です。ブロックチェーンの同期を待って、数時間後に [Symbol Node List](https://symbolnodes.org/nodes/) に反映されていることを確認してください。以上で完了です。
+
 ![p01](https://kosukelab.com/share/symbol-node-builder-01.png)
 
-5： しばらく待って、実施結果が表示され、`failed: 0` となっていれば成功です。ブロックチェーンの同期を待って、数時間後に [Symbol Node List](https://symbolnodes.org/nodes/) に反映されていることを確認してください。以上で完了です。(Wait a few minutes, if the result is `failed: 0`, you have succeeded. Wait for the blockchain to synchronize, and confirm that the result is reflected in the [Symbol Node List](https://symbolnodes.org/nodes/) in a few hours. You are done.)
+--
+
+The following operations should be performed on Ubuntu.
+
+1： Download and unzip the tool.
+
+  ```(text)
+  $ wget https://github.com/koutyan/Symbol-Node-Builder/archive/refs/tags/v1.0.1.tar.gz
+  $ tar xzvf v1.0.1.tar.gz
+  $ cd Symbol-Node-Builder-1.0.1/
+  ```
+
+2： Edit the files **in the /conf directory** to make the settings suitable for you.
+
+- **inventory**：Specify the hostname or IP address of the node to be executed. Basically, the default `localhost` is fine. If you want to build on a different server than the one you are currently operating on, replace it with the IP address of that server. Also, if you want to build multiple nodes at once, please enter the IP address of the target server in this file with a new line.
+
+- **preset.yml**：This file contains important settings for harvesting. The `friendlyName` allows you to set any description of the node. For `maxUnlockedAccounts`, you can set the maximum number of delegates. Set it according to the specifications of the node. `beneficiaryAddress` is the wallet address to which you want the node reward to be transferred. `delegatePrioritizationPolicy` allows you to set the order in which delegates will be left on the node when the limit is reached. You can set either Importance order or Age order.
+  
+    ```(text)
+    nodes:
+      - friendlyName: Your Symbol node description
+        maxUnlockedAccounts: 20
+        beneficiaryAddress: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        delegatePrioritizationPolicy: Age
+    ```
+
+- **vars.yml**：The `username` should be the general user name of the node to be built. It is assumed that this user name already exists. Also, if you don't want your node to support HTTPS, set `https_node` to false. Feel free to set a password for `symbol_password` to encrypt the configuration files of Symbol nodes.
+
+    ```(text)
+    username: ubuntu
+    https_node: true
+    symbol_password: hogehoge
+    ```
+
+3： Execute the following command. You will be asked for a password, enter it. You will be asked for your password. When "Setup done" is displayed, you are done.
+
+```(text)
+$ chmod +x setup.sh
+$ ./setup.sh
+```
+
+4： Finally, execute the following command, then you will be prompted for your user password and root password, enter them: Symbol node construction will be performed. Don't worry about the `WARNING` and other indications.
+
+```(text)
+$ ansible-playbook playbook.yml -vvv
+```
+
+5： Wait a few minutes, if the result is `failed=0`, you have succeeded. Wait for the blockchain to synchronize, and confirm that the result is reflected in the [Symbol Node List](https://symbolnodes.org/nodes/) in a few hours. You are done.
+
+![p01](https://kosukelab.com/share/symbol-node-builder-01.png)
 
 ## Tips
 
@@ -106,7 +158,6 @@ $ ansible-playbook playbook.yml -vvv
     ask_pass = false           # ← これ
 
     [privilege_escalation]
-    become = true
     become_method = sudo
     become_user = root
     become_ask_pass = false    # ← これ
@@ -133,7 +184,6 @@ $ ansible-playbook playbook.yml -vvv
     ask_pass = false           # ← HERE
 
     [privilege_escalation]
-    become = true
     become_method = sudo
     become_user = root
     become_ask_pass = false    # ← HERE

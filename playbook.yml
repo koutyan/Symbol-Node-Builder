@@ -116,6 +116,9 @@
         name: docker
         enabled: yes
         state: restarted
+    
+    - name: Reset ssh connection
+      meta: reset_connection
 
 
 - name: Build Symbol node
@@ -123,6 +126,17 @@
   vars_files:
     - ./conf/vars.yml
   tasks:
+    - name: Cleanup https-portal container
+      shell: cd /home/{{ username }}/https-portal && docker-compose down
+      ignore_errors: yes
+      when: https_node == true
+
+    - name: Cleanup symbol-bootstrap
+      shell: >
+        cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap stop;
+        cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap clean;
+      ignore_errors: yes
+
     - name: Make target directory
       file:
         path: /home/{{ username }}/symbol-bootstrap/target
@@ -152,14 +166,18 @@
       when: https_node == true
 
     - name: Start https-portal container
-      become: yes
       shell: cd /home/{{ username }}/https-portal && docker-compose up -d
       when: https_node == true
+
+    - name: Wait activating server
+      pause:
+        seconds: 30
 
     - name: Check Symbol node health
       uri:
         url: http://{{ ansible_facts['default_ipv4']['address'] }}:3000/node/health
         return_content: yes
+        status_code: 200
       register: result
-      failed_when: "'down' in result.content"
+      failed_when: "'down' in result.content or 'up' not in result.content"
     
