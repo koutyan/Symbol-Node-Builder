@@ -150,7 +150,24 @@ $ ansible-playbook playbook.yml -vvv
 
 ## Tips
 
-- 手順4での実行時でのパスワード入力を省略したい場合は、対象ノードと鍵交換を実施しておいてください。そのうえで、**ansible.cfg** の`ask_pass`と`become_ask_pass`の値をfalseにしてください。
+- 手順4実行時にSSH connectionでエラーが発生した場合は、以下のそれぞれ(または両方)の可能性が考えられます。
+  - パスワード認証を無効にしている：セキュリティ観点上、パスワード認証を無効にしている場合はツール使用時のみ有効にしてください。
+  
+    ```(text)
+    $ sudo vi /etc/ssh/sshd_config
+
+    PasswordAuthentication: yes
+
+    $ sudo systemctl restart sshd
+    ```
+
+  - Port 22が閉じている：セキュリティ観点上、Port 22を閉じている場合は、inventoryファイルのサーバーのIPアドレス(またはホスト名)の後ろに空白をあけ、以下の例のように`ansible_port=<SSH使用ポート>`と記載してください。
+
+    ```(text)
+    localhost ansible_port=55555
+    ```
+
+- 手順4実行時でのパスワード入力を省略したい場合は、対象ノードと鍵交換を実施しておいてください。そのうえで、**ansible.cfg** の`ask_pass`と`become_ask_pass`の値をfalseにしてください。
 
     ```(text)
     [defaults]
@@ -175,6 +192,23 @@ $ ansible-playbook playbook.yml -vvv
 - その他、ご意見やご要望なども上記Issue pageにて受け付けております。
 
 --
+
+- If an error occurs in the SSH connection when executing step 4, each (or both) of the following possibilities are possible.
+  - Password authentication is disabled: For security reasons, if you have disabled password authentication, please enable it only when using the tool.
+  
+    ```(text)
+    $ sudo vi /etc/ssh/sshd_config
+
+    PasswordAuthentication: yes
+
+    $ sudo systemctl restart sshd
+    ```
+
+  - Port 22 is closed: If Port 22 is closed for security reasons, leave a space after the IP address (or hostname) of the server in the inventory file and write `ansible_port=<port used for SSH>` as shown in the following example.
+
+    ```(text)
+    localhost ansible_port=55555
+    ```
 
 - If you want to omit the password input at runtime in step 4, exchange keys with the target node. Then, set the values of `ask_pass` and `become_ask_pass` in **ansible.cfg** to false.
 
