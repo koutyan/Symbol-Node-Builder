@@ -131,7 +131,7 @@ The following operations should be performed on Ubuntu.
     symbol_password: hogehoge
     ```
 
-3： Execute the following command. You will be asked for your password, enter it. You will be asked for your password. When "Setup done" is displayed, you are done.
+3： Execute the following command. You will be asked for your password, enter it. Pre-build preparations are made. When "Setup done" is displayed, you are done.
 
 ```(text)
 $ chmod +x setup.sh
