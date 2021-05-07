@@ -138,7 +138,7 @@ $ chmod +x setup.sh
 $ ./setup.sh
 ```
 
-4： You will be prompted twice for your password, enter it, and the Symbol node will be built. Don't worry about the `WARNING` and other indications.
+4： Finally, execute the following command. You will be prompted for your password twice, enter it, and the Symbol node will be built. Don't worry about the `WARNING` and other indications.
 
 ```(text)
 $ ansible-playbook playbook.yml -vvv
