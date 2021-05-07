@@ -131,14 +131,14 @@ The following operations should be performed on Ubuntu.
     symbol_password: hogehoge
     ```
 
-3： Execute the following command. You will be asked for a password, enter it. You will be asked for your password. When "Setup done" is displayed, you are done.
+3： Execute the following command. You will be asked for your password, enter it. You will be asked for your password. When "Setup done" is displayed, you are done.
 
 ```(text)
 $ chmod +x setup.sh
 $ ./setup.sh
 ```
 
-4： You will be prompted twice for a password, enter it, and the Symbol node will be built. Don't worry about the `WARNING` and other indications.
+4： You will be prompted twice for your password, enter it, and the Symbol node will be built. Don't worry about the `WARNING` and other indications.
 
 ```(text)
 $ ansible-playbook playbook.yml -vvv
