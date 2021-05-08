@@ -93,9 +93,12 @@ $ ./setup.sh
 $ ansible-playbook playbook.yml -vvv
 ```
 
-5： しばらく待って、実施結果が表示され、`failed=0` となっていれば成功です。ブロックチェーンの同期を待って、数時間後に [Symbol Node List](https://symbolnodes.org/nodes/) に反映されていることを確認してください。以上で完了です。
+5： しばらく待って、実施結果が表示され、`unreachable=0` `failed=0` となっていれば成功です。ブロックチェーンの同期を待って、数時間後に [Symbol Node List](https://symbolnodes.org/nodes/) に反映されていることを確認してください。以上で完了です。
 
-![p01](https://kosukelab.com/share/symbol-node-builder-01.png)
+```(text)
+PLAY RECAP *********************************************************************************************************************************************************************************************************************************
+localhost                  : ok=31   changed=24   unreachable=0    failed=0    skipped=0    rescued=0    ignored=2
+```
 
 --
 
@@ -144,9 +147,12 @@ $ ./setup.sh
 $ ansible-playbook playbook.yml -vvv
 ```
 
-5： Wait a few minutes, if the result is `failed=0`, you have succeeded. Wait for the blockchain to synchronize, and confirm that the result is reflected in the [Symbol Node List](https://symbolnodes.org/nodes/) in a few hours. You are done.
+5： Wait a few minutes, if the result is `unreachable=0` `failed=0`, you have succeeded. Wait for the blockchain to synchronize, and confirm that the result is reflected in the [Symbol Node List](https://symbolnodes.org/nodes/) in a few hours. You are done.
 
-![p01](https://kosukelab.com/share/symbol-node-builder-01.png)
+```(text)
+PLAY RECAP *********************************************************************************************************************************************************************************************************************************
+localhost                  : ok=31   changed=24   unreachable=0    failed=0    skipped=0    rescued=0    ignored=2
+```
 
 ## Tips
 
