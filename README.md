@@ -54,7 +54,7 @@ This is a tool to easily build Symbol nodes (peer, api) on your own nodes (inclu
 
   ```(text)
   $ wget https://github.com/koutyan/Symbol-Node-Builder/archive/refs/tags/v1.0.1.tar.gz
-  $ tar xzvf v1.0.1.tar.gz
+  $ tar xzvf v1.0.1.tar.gz && rm v1.0.1.tar.gz
   $ cd Symbol-Node-Builder-1.0.1/
   ```
 
@@ -108,7 +108,7 @@ The following operations should be performed on Ubuntu.
 
   ```(text)
   $ wget https://github.com/koutyan/Symbol-Node-Builder/archive/refs/tags/v1.0.1.tar.gz
-  $ tar xzvf v1.0.1.tar.gz
+  $ tar xzvf v1.0.1.tar.gz && rm v1.0.1.tar.gz
   $ cd Symbol-Node-Builder-1.0.1/
   ```
 
