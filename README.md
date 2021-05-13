@@ -100,6 +100,8 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=31   changed=24   unreachable=0    failed=0    skipped=0    rescued=0    ignored=2
 ```
 
+今後、`symbol-bootstrap` の更新をしたり、`preset.yml` を更新する場合は、[Symbol Node Updater](https://github.com/koutyan/Symbol-Node-Updater) の使用を推奨します。簡単にこれらの作業を実施できます。
+
 --
 
 The following operations should be performed on Ubuntu.
@@ -154,6 +156,8 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=31   changed=24   unreachable=0    failed=0    skipped=0    rescued=0    ignored=2
 ```
 
+If you want to update `symbol-bootstrap` or `preset.yml` in the future, we recommend using the [Symbol Node Updater](https://github.com/koutyan/Symbol-Node-Updater). It is easy to perform these tasks.
+
 ## Tips
 
 - 手順4実行時にSSH connectionでエラーが発生した場合は、以下のそれぞれ(または両方)の可能性が考えられます。
@@ -197,8 +201,6 @@ localhost                  : ok=31   changed=24   unreachable=0    failed=0    s
 
 - その他、ご意見やご要望なども上記Issue pageにて受け付けております。
 
-- Symbolノード(symbol-bootstrap)を超簡単に更新できるツール [Symbol Node Updater](https://github.com/koutyan/Symbol-Node-Updater) も是非チェックしてみてください。
-
 - アップデート通知などは、[Twitter(@_kotyan_)](https://twitter.com/_kotyan_) で行います。
 
 --
@@ -241,8 +243,6 @@ localhost                  : ok=31   changed=24   unreachable=0    failed=0    s
   - Details of the error (if it is long, it is preferable to copy and paste it into a separate file and attach it)
 
 - Other comments and requests are also welcome on the above Issue page.
-
-- Please also check out [Symbol Node Updater](https://github.com/koutyan/Symbol-Node-Updater), a tool that makes it super easy to update Symbol nodes (symbol-bootstrap).
 
 - Updates and other information will be posted on [Twitter(@_kotyan_)](https://twitter.com/_kotyan_).
 
