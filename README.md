@@ -146,7 +146,7 @@ $ ./setup.sh
 4： Finally, execute the following command. You will be prompted for your password twice, enter it, and the Symbol node will be built. Don't worry about the `WARNING` and other indications.
 
 ```(text)
-$ ansible-playbook playbook.yml -vvv
+$ ansible-playbook playbook.yml -v
 ```
 
 5： Wait a few minutes, if the result is `unreachable=0` `failed=0`, you have succeeded. Wait for the blockchain to synchronize, and confirm that the result is reflected in the [Symbol Node List](https://symbolnodes.org/nodes/) in a few hours. You are done.
