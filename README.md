@@ -90,7 +90,7 @@ $ ./setup.sh
 4： 最後に以下のコマンドを実行します。2回パスワードを求められるので、入力してください。Symbolノードの構築が実施されます。`WARNING`などの表示は気にしないでください。
 
 ```(text)
-$ ansible-playbook playbook.yml -vvv
+$ ansible-playbook playbook.yml -v
 ```
 
 5： しばらく待って、実施結果が表示され、`unreachable=0` `failed=0` となっていれば成功です。ブロックチェーンの同期を待って、数時間後に [Symbol Node List](https://symbolnodes.org/nodes/) に反映されていることを確認してください。以上で完了です。
