@@ -12,6 +12,8 @@ Building Symbol nodes is easy for everyone.
 - ノードの説明を自由に設定可能
 - HTTPS化対応
 
+--
+
 This is a tool to easily build Symbol nodes (peer, api) on your own nodes (including VPS). You can build Symbol nodes on your own environment with flexible configurations and settings that cannot be achieved with services such as Allnodes. The following functions are supported.
 
 - Batch construction of multiple nodes
@@ -53,9 +55,9 @@ This is a tool to easily build Symbol nodes (peer, api) on your own nodes (inclu
 1： ツールをダウンロードして解凍します。
 
   ```(text)
-  $ wget https://github.com/koutyan/Symbol-Node-Builder/archive/refs/tags/v1.0.1.tar.gz
-  $ tar xzvf v1.0.1.tar.gz && rm v1.0.1.tar.gz
-  $ cd Symbol-Node-Builder-1.0.1/
+  $ wget https://github.com/koutyan/Symbol-Node-Builder/archive/refs/tags/v1.0.2.tar.gz
+  $ tar xzvf v1.0.2.tar.gz && rm v1.0.2.tar.gz
+  $ cd Symbol-Node-Builder-1.0.2/
   ```
 
 2： **/confディレクトリ内**のファイルを編集して、自分に合った設定にします。
@@ -109,9 +111,9 @@ The following operations should be performed on Ubuntu.
 1： Download and unzip the tool.
 
   ```(text)
-  $ wget https://github.com/koutyan/Symbol-Node-Builder/archive/refs/tags/v1.0.1.tar.gz
-  $ tar xzvf v1.0.1.tar.gz && rm v1.0.1.tar.gz
-  $ cd Symbol-Node-Builder-1.0.1/
+  $ wget https://github.com/koutyan/Symbol-Node-Builder/archive/refs/tags/v1.0.2.tar.gz
+  $ tar xzvf v1.0.2.tar.gz && rm v1.0.2.tar.gz
+  $ cd Symbol-Node-Builder-1.0.2/
   ```
 
 2： Edit the files **in the /conf directory** to make the settings suitable for you.

@@ -1,7 +1,7 @@
 ---
 - name: Prepare node
   hosts: all
-  become: yes
+  become: true
   vars_files:
     - ./conf/vars.yml
   tasks:
@@ -21,7 +21,7 @@
         mkswap /var/swapfile;
         swapon /var/swapfile;
         echo '/var/swapfile none swap defaults 0 0' >> /etc/fstab;
-      ignore_errors: yes
+      ignore_errors: true
       when: ansible_memtotal_mb < 16000 and swap_file.stat.exists == false
 
     - name: Firewall(ufw) setting
@@ -43,7 +43,7 @@
 
     - name: Add node.js repository
       shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-      ignore_errors: yes
+      ignore_errors: true
 
     - name: Install Node.js
       apt:
@@ -97,7 +97,7 @@
       shell: >
         curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose;
         chmod +x /usr/local/bin/docker-compose;
-      ignore_errors: yes
+      ignore_errors: true
 
     - name: Check docker-compose exists
       stat:
@@ -128,14 +128,14 @@
   tasks:
     - name: Cleanup https-portal container
       shell: cd /home/{{ username }}/https-portal && docker-compose down
-      ignore_errors: yes
+      ignore_errors: true
       when: https_node == true
 
     - name: Cleanup symbol-bootstrap
       shell: >
         cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap stop;
         cd /home/{{ username }}/symbol-bootstrap && symbol-bootstrap clean;
-      ignore_errors: yes
+      ignore_errors: true
 
     - name: Make target directory
       file:
@@ -169,15 +169,13 @@
       shell: cd /home/{{ username }}/https-portal && docker-compose up -d
       when: https_node == true
 
-    - name: Wait activating server
-      pause:
-        seconds: 30
-
     - name: Check Symbol node health
       uri:
         url: http://{{ ansible_facts['default_ipv4']['address'] }}:3000/node/health
         return_content: yes
         status_code: 200
       register: result
-      failed_when: "'down' in result.content or 'up' not in result.content"
+      until: "'down' not in result.content and 'up' in result.content"
+      retries: 120
+      delay: 5
     
