@@ -194,17 +194,6 @@ If you want to update `symbol-bootstrap` or `preset.yml` in the future, we recom
 
 - Symbolノードの構築に成功しているにもかかわらず、`:3000/node/info`に接続できない場合は、利用しているサービスのパケットフィルタリングが邪魔をしている可能性が高いです。`3000` `7900` `3001` `80` ポートが許可されているかを確認し、不足があればルールを追加してください。
 
-    ![p02](https://kosukelab.com/share/symbol-node-builder-02.png)
-
-- 失敗した場合は、[Issue page](https://github.com/koutyan/Symbol-Node-Builder/issues) に以下の情報を添えて投稿してください。また、すでに解決している問題の可能性も高いため、投稿する前に過去のIssueを確認してください。(なお、手順3と4を何度実行してもノードに影響を及ぼさない設計としています。)
-
-  - 手順のどこで失敗したのか (例: 手順4で失敗した)
-  - エラー内容 (長い場合はコピペして別途ファイルにペーストして添付するのが望ましい)
-
-- その他、ご意見やご要望なども上記Issue pageにて受け付けております。
-
-- アップデート通知などは、[Twitter(@_kotyan_)](https://twitter.com/_kotyan_) で行います。
-
 --
 
 - If an error occurs in the SSH connection when executing step 4, each (or both) of the following possibilities are possible.
@@ -239,16 +228,6 @@ If you want to update `symbol-bootstrap` or `preset.yml` in the future, we recom
 
 - If you can't connect to `:3000/node/info` even though you have successfully built a Symbol node, it is most likely that the packet filtering of the service you are using is interfering. Check if the `3000` `7900` `3001` `80` port is allowed and add a rule if it is missing.
 
-- If this fails, please post the issue on the [Issue page](https://github.com/koutyan/Symbol-Node-Builder/issues) with the following information. It is also likely that the problem has already been solved, so please check the previous issues before posting. (Note that the design does not affect the nodes no matter how many times steps 3 and 4 are executed.)
-
-  - Where in the procedure did it fail (e.g., step 4 failed)
-  - Details of the error (if it is long, it is preferable to copy and paste it into a separate file and attach it)
-
-- Other comments and requests are also welcome on the above Issue page.
-
-- Updates and other information will be posted on [Twitter(@_kotyan_)](https://twitter.com/_kotyan_).
-
 ## Donate
 
 - Symbol (XYM): `NCTFRL5RGOAKAW4B3HZLUMEM6YGWI3WRK4V2OKY`
-- My Symbol Node: `https://001symbol.blockchain-node.tech:3001`
